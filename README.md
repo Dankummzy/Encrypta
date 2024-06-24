@@ -15,8 +15,8 @@ cryptography
 Pillow
 ## Installation
 #### Clone the repository:
-git clone https://github.com/Dankummzy/encrypta.git
-cd encrypta
+###### git clone https://github.com/Dankummzy/encrypta.git
+###### cd encrypta
 #### Create a virtual environment and activate it:
 python3 -m venv venv
 source venv/bin/activate  # On Windows use `venv\Scripts\activate`
