@@ -1,0 +1,1 @@
+This is a secret message embedded in an image using steganography. Keep it safe and secure!

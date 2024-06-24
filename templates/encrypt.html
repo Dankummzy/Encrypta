@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">Encrypt a Text File</h2>
+  <form action="{{ url_for('encrypt') }}" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="file" class="form-label">Select Text File to Encrypt:</label>
+      <input type="file" class="form-control" id="file" name="file" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Encrypt</button>
+  </form>
+  {% if encrypted_file %}
+  <div class="mt-4">
+    <h2>Encrypted File</h2>
+    <a href="{{ url_for('download_file', filename=encrypted_file) }}" class="btn btn-success">Download Encrypted File</a>
+  </div>
+  {% endif %}
+  <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Back to Home</a>
+</div>
+{% endblock %}

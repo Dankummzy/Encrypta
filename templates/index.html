@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center">
+  <h2 class="mb-4">Welcome to Encrypta</h2>
+  <p class="mb-4">Encrypta is your one-stop solution for RSA encryption, decryption, and steganography. You can encrypt text, decrypt files, embed messages into images, and extract messages from images with ease.</p>
+</div>
+<div class="row">
+  <div class="col-md-6 mb-4">
+    <a href="/encrypt" class="text-decoration-none">
+      <div class="card bg-primary text-white">
+        <div class="card-body text-center">
+          <h3 class="card-title">Encrypt Text</h3>
+          <p class="card-text">Securely encrypt your text using RSA encryption.</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-md-6 mb-4">
+    <a href="/decrypt" class="text-decoration-none">
+      <div class="card bg-success text-white">
+        <div class="card-body text-center">
+          <h3 class="card-title">Decrypt Text</h3>
+          <p class="card-text">Decrypt your encrypted text files effortlessly.</p>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 mb-4">
+    <a href="/embed" class="text-decoration-none">
+      <div class="card bg-info text-white">
+        <div class="card-body text-center">
+          <h3 class="card-title">Embed Message</h3>
+          <p class="card-text">Embed secret messages into images.</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-md-6 mb-4">
+    <a href="/extract" class="text-decoration-none">
+      <div class="card bg-warning text-dark">
+        <div class="card-body text-center">
+          <h3 class="card-title">Extract Message</h3>
+          <p class="card-text">Extract hidden messages from images.</p>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+{% endblock %}
