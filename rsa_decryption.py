@@ -3,6 +3,12 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import serialization, hashes
 import base64
 
+def convert_back(num):
+    num_to_char = {}
+    for i in range(256):  # Handle all ASCII characters
+        num_to_char[i + 1] = chr(i)
+    return num_to_char.get(num, '')
+
 def decrypt_rsa(encrypted_bytes, private_key):
     decrypted_bytes = private_key.decrypt(
         encrypted_bytes,
@@ -13,15 +19,6 @@ def decrypt_rsa(encrypted_bytes, private_key):
         )
     )
     return decrypted_bytes
-
-def convert_back(num):
-    num_to_char = {
-        1: "A", 2: "B", 3: "C", 4: "D", 5: "E",
-        74: "+", 75: "/", 63: "!", 64: "@", 65: "#",
-        66: "$", 67: "%", 68: "^", 69: "&", 70: "*",
-        71: "(", 72: ")", 73: "-", 76: " ", 77: "\n"
-    }
-    return num_to_char.get(num, '')
 
 def load_private_key(file_path):
     with open(file_path, "rb") as key_file:
@@ -42,18 +39,15 @@ if __name__ == "__main__":
         private_key = load_private_key("private_key.pem")
         encrypted_values = load_encrypted_data("sample1.txt")
 
-        decrypted_chars = []
+        decrypted_text = []
         for encoded_value in encrypted_values:
             encrypted_bytes = base64.b64decode(encoded_value)
-            decrypted_bytes = decrypt_rsa(encrypted_bytes, private_key)
-            for byte in decrypted_bytes:
-                decrypted_chars.append(convert_back(byte))
+            decrypted_text.append(decrypt_rsa(encrypted_bytes, private_key))
 
-        decrypted_text = ''.join(decrypted_chars)
+        decrypted_text = ''.join(decrypted_text)
         print("Decrypted Text:", decrypted_text)
 
     except FileNotFoundError as e:
         print(f"File not found: {e.filename}")
     except Exception as e:
         print("Error during decryption:", e)
-       

@@ -3,16 +3,12 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import serialization
 import base64
-from sympy import isprime
 import sys
 
 def convert(txt):
-    char_to_num = {
-        "A": 1, "B": 2, "C": 3, "D": 4, "E": 5,
-        "+": 74, "/": 75, "!": 63, "@": 64, "#": 65,
-        "$": 66, "%": 67, "^": 68, "&": 69, "*": 70,
-        "(": 71, ")": 72, "-": 73, " ": 76, "\n": 77
-    }
+    char_to_num = {}
+    for i in range(256):  # Handle all ASCII characters
+        char_to_num[chr(i)] = i + 1
     return char_to_num.get(txt, -1)
 
 def generate_rsa_keypair():
@@ -35,11 +31,7 @@ def generate_rsa_keypair():
 def encrypt_text(public_key, text):
     encrypted_values = []
     for char in text:
-        numeric_value = convert(char)
-        if numeric_value == -1:
-            print(f"Unsupported character '{char}' found in text.")
-            continue
-        byte_value = bytes([numeric_value])
+        byte_value = char.encode('utf-8')
         encrypted_byte = public_key.encrypt(
             byte_value,
             padding.OAEP(
@@ -53,18 +45,7 @@ def encrypt_text(public_key, text):
 
 if __name__ == "__main__":
     try:
-        p = int(input('Enter the value of p (prime) = '))
-        q = int(input('Enter the value of q (prime) = '))
-        if not (isprime(p) and isprime(q)):
-            raise ValueError("Both p and q must be prime numbers.")
-        if p == q:
-            raise ValueError("p and q must be distinct prime numbers.")
-    except ValueError as e:
-        print(e)
-        sys.exit(1)
-
-    private_key, public_key = generate_rsa_keypair()
-    try:
+        private_key, public_key = generate_rsa_keypair()
         with open("s1.txt", "r") as file:
             text = file.read()
     except FileNotFoundError:

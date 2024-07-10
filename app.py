@@ -30,10 +30,9 @@ os.makedirs(os.path.join(app.config['UPLOAD_FOLDER'], 'images'), exist_ok=True)
 def decrypt_text(private_key, encrypted_data):
     decrypted_chars = []
     for encoded_value in encrypted_data:
-        encrypted_bytes = base64.b64decode(encoded_value)
-        decrypted_bytes = decrypt_rsa(encrypted_bytes, private_key)
-        for byte in decrypted_bytes:
-            decrypted_chars.append(convert_back(byte))
+        encrypted_bytes = base64.b64decode(encoded_value.encode('utf-8'))  # Decode base64 and encode to bytes
+        decrypted_byte = decrypt_rsa(encrypted_bytes, private_key)
+        decrypted_chars.append(decrypted_byte.decode('utf-8', 'ignore'))  # Decode bytes to string
     return ''.join(decrypted_chars)
 
 @app.route('/')
